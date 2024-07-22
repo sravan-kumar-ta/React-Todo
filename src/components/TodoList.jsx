@@ -9,13 +9,16 @@ const TodoList = () => {
   const [todoValue, setTodo] = useState([]);
 
   const createTodo = (todo) => {
-    setTodo([...todoValue, { id: uuidv4(), task: todo, isEditing: false }]);
+    setTodo([
+      ...todoValue,
+      { id: uuidv4(), task: todo, isEditing: false, isDone: false },
+    ]);
   };
 
   const deleteTodo = (id) => {
     setTodo(todoValue.filter((todo) => todo.id !== id));
   };
-  
+
   const editTodo = (id) => {
     setTodo(
       todoValue.map((todo) =>
@@ -27,7 +30,17 @@ const TodoList = () => {
   const editTask = (task, id) => {
     setTodo(
       todoValue.map((todo) =>
-        todo.id === id ? { ...todo, task: task, isEditing: false } : todo
+        todo.id === id
+          ? { ...todo, task: task, isEditing: false, isDone: false }
+          : todo
+      )
+    );
+  };
+
+  const taskDone = (id) => {
+    setTodo(
+      todoValue.map((todo) =>
+        todo.id === id ? { ...todo, isDone: true } : todo
       )
     );
   };
@@ -35,6 +48,7 @@ const TodoList = () => {
   return (
     <div className="container bg-gray-700 mt-20 p-8 rounded-md">
       <Form createTodo={createTodo} />
+
       {todoValue.map((todo, idx) =>
         todo.isEditing ? (
           <Edit key={idx} editTodo={editTask} task={todo} />
@@ -42,6 +56,7 @@ const TodoList = () => {
           <Todo
             key={idx}
             task={todo}
+            taskDone={taskDone}
             editTodo={editTodo}
             deleteTodo={deleteTodo}
           />
