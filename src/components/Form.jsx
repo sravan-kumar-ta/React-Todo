@@ -10,23 +10,20 @@ const Form = ({ createTodo }) => {
   };
 
   return (
-    <form className="mb-4 font-primary w-full text-center" onSubmit={handleSubmit}>
-      <input
-        type="text"
-        className="outline-none
-        bg-transparent border border-gray-500 p-4 w-[300px]
-        text-white mb-8 rounded placeholder:text-gray-300"
-        placeholder="What task do you have today?"
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-        aria-label="Task input"
-      />
-      <button
-        className="bg-gray-500 border-none p-2 text-white
-        cursor-pointer rounded ml-2"
-      >
-        Add Task
-      </button>
+    <form className="w-full max-w-sm mx-auto px-4 py-2" onSubmit={handleSubmit}>
+      <div class="flex items-center border-b-2 border-teal-500 py-2">
+        <input
+          type="text"
+          className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+          placeholder="What task do you have today?"
+          onChange={(e) => setValue(e.target.value)}
+          value={value}
+          aria-label="Task input"
+        />
+        <button className="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded">
+          Add Task
+        </button>
+      </div>
     </form>
   );
 };

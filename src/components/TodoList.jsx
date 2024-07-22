@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { FaCalendarDays } from "react-icons/fa6";
 import Form from "./Form";
 import Todo from "./Todo";
 import Edit from "./Edit";
@@ -46,22 +47,27 @@ const TodoList = () => {
   };
 
   return (
-    <div className="container bg-gray-700 mt-20 p-8 rounded-md">
+    <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-16">
+      <div class="px-4 py-2 flex justify-between items-center">
+        <h1 class="text-gray-800 font-bold text-2xl uppercase">To-Do List</h1>
+        <FaCalendarDays className="text-xl text-teal-700" />
+      </div>
       <Form createTodo={createTodo} />
-
-      {todoValue.map((todo, idx) =>
-        todo.isEditing ? (
-          <Edit key={idx} editTodo={editTask} task={todo} />
-        ) : (
-          <Todo
-            key={idx}
-            task={todo}
-            taskDone={taskDone}
-            editTodo={editTodo}
-            deleteTodo={deleteTodo}
-          />
-        )
-      )}
+      <ul class="divide-y divide-gray-200 px-4">
+        {todoValue.map((todo, idx) =>
+          todo.isEditing ? (
+            <Edit key={idx} editTodo={editTask} task={todo} />
+          ) : (
+            <Todo
+              key={idx}
+              task={todo}
+              taskDone={taskDone}
+              editTodo={editTodo}
+              deleteTodo={deleteTodo}
+            />
+          )
+        )}
+      </ul>
     </div>
   );
 };

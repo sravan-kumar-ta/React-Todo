@@ -13,21 +13,20 @@ const Edit = ({ editTodo, task }) => {
   };
 
   return (
-    <form
-      className="mb-4 font-primary w-full text-center"
-      onSubmit={handleSubmit}
-    >
-      <input
-        type="text"
-        className="outline-none bg-transparent border border-gray-500
-        p-2 w-9/12 mt-3 text-white rounded placeholder:text-gray-300"
-        placeholder="Update Task"
-        onChange={(e) => setValue(e.target.value)}
-        value={value}
-      />
-      <button className="bg-gray-500 border-none p-2 text-white cursor-pointer rounded ml-2">
-        Update Task
-      </button>
+    <form className="w-full max-w-sm mx-auto px-4 py-1" onSubmit={handleSubmit}>
+      <div class="flex items-center border-2 border-teal-500 rounded">
+        <input
+          type="text"
+          className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+          placeholder="What task do you have today?"
+          onChange={(e) => setValue(e.target.value)}
+          value={value}
+          aria-label="Task input"
+        />
+        <button className="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white my-1 px-2 mx-2 rounded">
+          Update Task
+        </button>
+      </div>
     </form>
   );
 };
