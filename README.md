@@ -12,11 +12,16 @@ A simple Todo App built with React, Vite, Tailwind CSS, React Icons, and Firebas
 
 > **Note:** You need to switch to the `firebase` branch to see the code that includes Firebase integration. The `master` branch contains the code for the Todo application without Firebase.
 
+## Git Branches
+
+- **`master`**: Contains the version of the app without Firebase integration.
+- **`firebase`**: Contains the version of the app with Firebase Firestore for real-time database updates.
+
 ## Features
 
 - Add, edit, and delete todos
 - Mark todos as complete
-- Real-time database updates with Firebase Firestore
+- Real-time database updates with Firebase Firestore (in the `firebase` branch)
 
 ## Screenshot
 
@@ -33,7 +38,7 @@ Make sure you have Node.js and npm installed on your machine.
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/todo-app.git
+git clone https://github.com/sravan-kumar-ta/React-Todo.git
 ```
 
 2. Navigate to the project directory:
