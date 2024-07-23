@@ -31,7 +31,7 @@ Make sure you have Node.js and npm installed on your machine.
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/todo-app.git
+git clone https://github.com/sravan-kumar-ta/React-Todo.git
 ```
 
 2. Navigate to the project directory:
