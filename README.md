@@ -107,7 +107,7 @@ npm run dev
 
 2. Open your browser and navigate to http://localhost:3000.
 
-> Note: The default port number for Vite has been changed from 5157 to 3000.
+> Note: The default port number for Vite has been changed from 5173 to 3000.
 
 ## React + Vite
 
