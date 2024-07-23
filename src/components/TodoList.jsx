@@ -1,4 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import {
+  collection,
+  addDoc,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  updateDoc,
+} from "firebase/firestore";
+import { db } from "../firebase";
 import { v4 as uuidv4 } from "uuid";
 import { FaCalendarDays } from "react-icons/fa6";
 import Form from "./Form";
@@ -9,57 +18,62 @@ uuidv4();
 const TodoList = () => {
   const [todoValue, setTodo] = useState([]);
 
-  const createTodo = (todo) => {
-    setTodo([
-      ...todoValue,
-      { id: uuidv4(), task: todo, isEditing: false, isDone: false },
-    ]);
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, "todos"), (snapshot) => {
+      const todos = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setTodo(todos);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const createTodo = async (todo) => {
+    await addDoc(collection(db, "todos"), {
+      task: todo,
+      isEditing: false,
+      isDone: false,
+    });
   };
 
-  const deleteTodo = (id) => {
-    setTodo(todoValue.filter((todo) => todo.id !== id));
+  const deleteTodo = async (id) => {
+    await deleteDoc(doc(db, "todos", id));
   };
 
-  const editTodo = (id) => {
-    setTodo(
-      todoValue.map((todo) =>
-        todo.id === id ? { ...todo, isEditing: !todo.isEditing } : todo
-      )
-    );
+  const editTodo = async (id) => {
+    const todoDoc = doc(db, "todos", id);
+    const todo = todoValue.find((todo) => todo.id === id);
+    await updateDoc(todoDoc, { isEditing: !todo.isEditing });
   };
 
-  const editTask = (task, id) => {
-    setTodo(
-      todoValue.map((todo) =>
-        todo.id === id
-          ? { ...todo, task: task, isEditing: false, isDone: false }
-          : todo
-      )
-    );
+  const editTask = async (task, id) => {
+    const todoDoc = doc(db, "todos", id);
+    await updateDoc(todoDoc, { task, isEditing: false, isDone: false });
   };
 
-  const taskDone = (id) => {
-    setTodo(
-      todoValue.map((todo) =>
-        todo.id === id ? { ...todo, isDone: true } : todo
-      )
-    );
+  const taskDone = async (id) => {
+    const todoDoc = doc(db, "todos", id);
+    const todo = todoValue.find((todo) => todo.id === id);
+    await updateDoc(todoDoc, { isDone: true });
   };
 
   return (
     <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-16">
       <div className="px-4 py-2 flex justify-between items-center">
-        <h1 className="text-gray-800 font-bold text-2xl uppercase">To-Do List</h1>
+        <h1 className="text-gray-800 font-bold text-2xl uppercase">
+          To-Do List
+        </h1>
         <FaCalendarDays className="text-xl text-teal-700" />
       </div>
       <Form createTodo={createTodo} />
       <ul className="divide-y divide-gray-200 px-4">
-        {todoValue.map((todo, idx) =>
+        {todoValue.map((todo) =>
           todo.isEditing ? (
-            <Edit key={idx} editTodo={editTask} task={todo} />
+            <Edit key={todo.id} editTodo={editTask} task={todo} />
           ) : (
             <Todo
-              key={idx}
+              key={todo.id}
               task={todo}
               taskDone={taskDone}
               editTodo={editTodo}
