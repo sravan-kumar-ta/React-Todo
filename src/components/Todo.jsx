@@ -6,11 +6,11 @@ import { MdEditCalendar } from "react-icons/md";
 
 const Todo = ({ task, taskDone, editTodo, deleteTodo }) => {
   return (
-    <li class="py-4">
-      <div class="flex justify-between items-center">
+    <li className="py-4">
+      <div className="flex justify-between items-center">
         <div className="flex justify-between items-center">
           <MdEditCalendar className="text-teal-500" />
-          <label for="todo2" class="ml-3 block text-gray-900">
+          <label for="todo2" className="ml-3 block text-gray-900">
             {task.isDone ? (
               <span className="text-lg font-medium center-strike text-gray-500">
                 {task.task}

@@ -14,7 +14,7 @@ const Edit = ({ editTodo, task }) => {
 
   return (
     <form className="w-full max-w-sm mx-auto px-4 py-1" onSubmit={handleSubmit}>
-      <div class="flex items-center border-2 border-teal-500 rounded">
+      <div className="flex items-center border-2 border-teal-500 rounded">
         <input
           type="text"
           className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
